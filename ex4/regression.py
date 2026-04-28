@@ -10,7 +10,7 @@ class LinearRegression:
        self.theta = np.dot(np.dot(temp,x.T),y)
 
     def predict(self, x):#予測値そのもの
-        pass
+        return np.dot(x,self.theta)
 
     def score(self, x, y):#誤差計算
         pass

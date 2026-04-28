@@ -15,11 +15,18 @@ idx = np.random.permutation(n)
 
 train_size = int(0.8 * n)
 train_idx = idx[:train_size]
+test_idx = idx[train_size:]
 
 x_train, y_train = x[train_idx], y[train_idx]
+x_test, y_test = x[test_idx], y[test_idx]
 
 import regression
 model = regression.LinearRegression()
 model.fit(x_train, y_train)
 
 print(model.theta)
+
+# 予測
+y_pred = model.predict(x_test)
+
+print(y_pred)
