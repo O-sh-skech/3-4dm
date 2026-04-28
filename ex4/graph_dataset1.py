@@ -30,6 +30,7 @@ y_observed = sam_y + noise
 df["観測値"] = y_observed
 
 df.to_csv("/Users/uta/datamining/ex4/data.tsv", sep="\t", index=False)
+df = pd.read_csv("/Users/uta/datamining/ex4/data.tsv", sep="\t")
 
 #-----------グラフ処理---------------
 
