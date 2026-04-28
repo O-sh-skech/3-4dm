@@ -29,6 +29,9 @@ y_observed = sam_y + noise
 
 df["観測値"] = y_observed
 
+df.to_csv("/Users/uta/datamining/ex4/data.tsv", sep="\t", index=False)
+
+#-----------グラフ処理---------------
 
 plt.plot(x, y, label="y = sin(pi * 0.8 * x) * 10")
 plt.scatter(sam_x, sam_y, color="red", label="Samples")
@@ -46,3 +49,4 @@ if os.path.exists(f"/Users/uta/datamining/ex4/{filename}"):
 
 plt.savefig(f"/Users/uta/datamining/ex4/{filename}")
 plt.show()
+
