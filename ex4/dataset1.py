@@ -15,23 +15,24 @@ def sample_x(n=20, seed=0):
     return np.random.uniform(-1, 1, n)
 
 
-x = np.linspace(-1, 1, 100)
-y = true_function(x)
-sam_x = sample_x()
-sam_y = true_function(sam_x)
-noise = np.random.normal(loc=0.0, scale=np.sqrt(2.0), size=len(sam_x))
-noise = noise / 2
-y_observed = sam_y + noise
+def create_dataset(n=20, seed=0):
+    sam_x = sample_x(n, seed)
+    sam_y = true_function(sam_x)
 
-df = pd.DataFrame({
-    "観測点": sam_x,
-    "真値": sam_y
-})
+    noise = np.random.normal(0.0, np.sqrt(2.0), size=len(sam_x)) / 2
+    y_observed = sam_y + noise
 
-df["観測値"] = y_observed
+    df = pd.DataFrame({
+        "観測点": sam_x,
+        "真値": sam_y,
+        "観測値": y_observed
+    })
+    return df
 
 def plot_true_function():#1.1
     # 線用データ
+    x = np.linspace(-1, 1, 100)
+    y = true_function(x)
     plt.plot(x, y, label="y = sin(pi * 0.8 * x) * 10")
     plt.legend()
     plt.xlabel("x")
@@ -42,9 +43,12 @@ def plot_true_function():#1.1
 
 
 
-def plot_samples():#1.2
+def plot_samples(df):#1.2
+    x = np.linspace(-1, 1, 100)
+    y = true_function(x)
+
     plt.plot(x, y, label="y = sin(pi * 0.8 * x) * 10")
-    plt.scatter(sam_x, sam_y, color="red", label="Samples")
+    plt.scatter(df["観測点"], df["真値"], color="red", label="Samples")
     plt.legend()
     plt.xlabel("x")
     plt.ylabel("y")
@@ -54,10 +58,13 @@ def plot_samples():#1.2
 
 
 
-def plot_noisy_samples():
+def plot_noisy_samples(df):
+    x = np.linspace(-1, 1, 100)
+    y = true_function(x)
+
     plt.plot(x, y, label="y = sin(pi * 0.8 * x) * 10")
-    plt.scatter(sam_x, sam_y, color="red", label="Samples")
-    plt.scatter(sam_x, y_observed, label="Observed (Noisy)", alpha=0.7)
+    plt.scatter(df["観測点"], df["真値"], color="red", label="Samples")
+    plt.scatter(df["観測点"], df["観測値"], label="Observed (Noisy)", alpha=0.7)
     plt.legend()
     plt.xlabel("x")
     plt.ylabel("y")
@@ -67,7 +74,7 @@ def plot_noisy_samples():
 
 
 
-def save_dataset_to_tsv():
+def save_dataset_to_tsv(df):
     df.to_csv(f"{base_dir}/data.tsv", sep="\t", index=False)
 
 
@@ -79,8 +86,9 @@ def load_dataset_from_tsv():
 
 
 if __name__ == "__main__":
+    df = create_dataset(n=20, seed=0)
     plot_true_function()
-    plot_samples()
-    plot_noisy_samples()
-    save_dataset_to_tsv()
+    plot_samples(df)
+    plot_noisy_samples(df)
+    save_dataset_to_tsv(df)
     print(load_dataset_from_tsv())
