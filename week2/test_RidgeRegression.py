@@ -22,9 +22,9 @@ samples_x = np.arange(0, 4.1, 0.1)
 samples_x2 = poly.fit_transform(samples_x.reshape(len(samples_x), 1))
 
 for alpha in alphas:
-    clf = Ridge(alpha=alpha)      # ← αごとにモデル作る
-    clf.fit(X2, Y)                # ← 学習
-    samples_y = clf.predict(samples_x2)  # ← 予測
+    clf = Ridge(alpha=alpha)      
+    clf.fit(X2, Y)                
+    samples_y = clf.predict(samples_x2)  
 
     plt.plot(samples_x, samples_y, label=f'alpha = {alpha}')
 
@@ -32,5 +32,5 @@ plt.scatter(X, Y, label='data set')
 plt.legend()
 
 
-plt.savefig("week2/ridge_plot.png")  # ← ここ（showの前！）
+plt.savefig("week2/ridge_plot.png")  
 plt.show()
