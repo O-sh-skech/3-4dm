@@ -5,11 +5,12 @@ class LinearRegression:
     theta = None
     y= None
 
-    def fit(self, x, y):
-       pass
+    def fit(self, x, y):#1.9 シータの本体
+       temp = np.linalg.inv(np.dot(x.T,x))
+       self.theta = np.dot(np.dot(temp,x.T),y)
 
-    def predict(self, x):#予測
+    def predict(self, x):#予測値そのもの
         pass
 
-    def score(self, x, y):
+    def score(self, x, y):#誤差計算
         pass
