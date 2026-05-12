@@ -26,19 +26,24 @@ import regression
 model = regression.LinearRegression()
 model.fit(x_train, y_train)
 
-#print(model.theta)
+import pickle
+
+with open("/Users/uta/datamining/ex4/model.pkl", "wb") as f:
+    pickle.dump(model, f)
+
+
 
 # 予測
 y_pred = model.predict(x_test)
 
-#print(y_pred)
+
 
 x_ = np.linspace(-1, 1, 100)
 y_ = true_function(x_)
 #真の関数を表示するだけのx_,y_
 x_plot = np.linspace(-1, 1, 100).reshape(-1, 1)
 y_pred = model.predict(x_plot)
-print(y_pred)
+
 
 #MEAテスト
 MAE_score = model.MAE_score(x_plot,y_)
