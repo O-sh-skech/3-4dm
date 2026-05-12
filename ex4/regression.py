@@ -12,5 +12,6 @@ class LinearRegression:
     def predict(self, x):#予測値そのもの
         return np.dot(x,self.theta)
 
-    def score(self, x, y):#誤差計算
-        pass
+    def MAE_score(self, x, y):#誤差計算
+        error = self.predict(x)-y
+        return np.sum(np.abs(error)) / len(error)
